@@ -20,6 +20,10 @@ fig1, ax1 = plt.subplots()
 ax1.plot(df.index, df['cnt'])
 ax1.set_xlabel('Date')
 ax1.set_ylabel('Total Ridership')
+
+ax1.xaxis.set_major_locator(mdates.MonthLocator(interval=3))
+ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+plt.xticks(rotation=45)
 st.pyplot(fig1)
 
 # Bar Plot: Total Ridership by Season
