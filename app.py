@@ -13,7 +13,7 @@ df['dteday'] = pd.to_datetime(df['dteday'])
 
 df = df.set_index('dteday')
 
-st.title('Bike Sharing Data Visualization')
+st.title('Bike Sharing Data Visualization- Nolan Tomaszycki and Trevor Warren')
 
 #Line plot: Total Ridership Over Time
 st.header('Total Ridership Over Time')
