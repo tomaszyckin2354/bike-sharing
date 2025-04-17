@@ -1,28 +1,20 @@
-import streamlit as st
-import pandas as pd
-
-# Load the dataset
-df = pd.read_csv("raw.githubusercontent.com_iantonios_dsc205_refs_heads_main_bike_sharing.csv")
-
-st.title('Bike Sharing Data Explorer')
-st.write(df.head())
 
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Load the dataset
+
 df = pd.read_csv("raw.githubusercontent.com_iantonios_dsc205_refs_heads_main_bike_sharing.csv")
 
-# Convert 'dteday' to datetime
+
 df['dteday'] = pd.to_datetime(df['dteday'])
 
-# Set the datetime as the index for resampling later
+
 df = df.set_index('dteday')
 
 st.title('Bike Sharing Data Visualization')
 
-# --- 1. Line plot: Total Ridership Over Time ---
+#Line plot: Total Ridership Over Time
 st.header('Total Ridership Over Time')
 fig1, ax1 = plt.subplots()
 ax1.plot(df.index, df['cnt'])
@@ -30,7 +22,7 @@ ax1.set_xlabel('Date')
 ax1.set_ylabel('Total Ridership')
 st.pyplot(fig1)
 
-# --- 2. Bar Plot: Total Ridership by Season ---
+# Bar Plot: Total Ridership by Season
 st.header('Total Ridership by Season')
 
 # Map the season numbers to names
@@ -45,7 +37,7 @@ ax2.set_xlabel('Season')
 ax2.set_ylabel('Total Ridership')
 st.pyplot(fig2)
 
-# --- 3. Line plot with Rolling Average Selector ---
+#Line plot with Rolling Average Selector
 st.header('Total Ridership with Rolling Average')
 
 rolling_option = st.radio(
@@ -67,9 +59,17 @@ else:
 ax3.set_xlabel('Date')
 ax3.set_ylabel('Total Ridership')
 ax3.legend()
+
+import matplotlib.dates as mdates
+
+# Format the x-axis
+ax.xaxis.set_major_locator(mdates.MonthLocator(interval=3))  # Show every 3rd month
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))  # Format as "Year-Month"
+plt.xticks(rotation=45)  # Rotate x labels for better readability
+
 st.pyplot(fig3)
 
-# --- 4. Line plot: Total Ridership by Week ---
+#Line plot: Total Ridership by Week
 st.header('Total Weekly Ridership')
 
 weekly_totals = df['cnt'].resample('W').sum()
@@ -78,4 +78,12 @@ fig4, ax4 = plt.subplots()
 ax4.plot(weekly_totals.index, weekly_totals.values)
 ax4.set_xlabel('Week')
 ax4.set_ylabel('Total Ridership')
+
+import matplotlib.dates as mdates
+
+# Format the x-axis
+ax.xaxis.set_major_locator(mdates.MonthLocator(interval=3))  # Show every 3rd month
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))  # Format as "Year-Month"
+plt.xticks(rotation=45)  # Rotate x labels for better readability
+
 st.pyplot(fig4)
