@@ -63,8 +63,8 @@ ax3.legend()
 import matplotlib.dates as mdates
 
 # Format the x-axis
-ax.xaxis.set_major_locator(mdates.MonthLocator(interval=3))  # Show every 3rd month
-ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))  # Format as "Year-Month"
+ax3.xaxis.set_major_locator(mdates.MonthLocator(interval=3))  # Show every 3rd month
+ax3.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))  # Format as "Year-Month"
 plt.xticks(rotation=45)  # Rotate x labels for better readability
 
 st.pyplot(fig3)
@@ -82,8 +82,8 @@ ax4.set_ylabel('Total Ridership')
 import matplotlib.dates as mdates
 
 # Format the x-axis
-ax.xaxis.set_major_locator(mdates.MonthLocator(interval=3))  # Show every 3rd month
-ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))  # Format as "Year-Month"
+ax4.xaxis.set_major_locator(mdates.MonthLocator(interval=3))  # Show every 3rd month
+ax4.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))  # Format as "Year-Month"
 plt.xticks(rotation=45)  # Rotate x labels for better readability
 
 st.pyplot(fig4)
