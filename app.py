@@ -43,21 +43,24 @@ ax2.set_ylabel('Total Ridership')
 st.pyplot(fig2)
 
 #Line plot with Rolling Average Selector
-st.header('Total Ridership with Rolling Average')
+st.header('Total Ridership with Rolling Average or Weekly View')
 
-rolling_option = st.radio(
-    "Select a Rolling Average Window:",
-    ('None', '7-day average', '14-day average')
+view_option = st.radio(
+    "Select a Ridership View:",
+    ('None', '7-day average', '14-day average', 'Weekly totals')
 )
 
 fig3, ax3 = plt.subplots()
 
-if rolling_option == '7-day average':
+if view_option == '7-day average':
     df['cnt_rolling'] = df['cnt'].rolling(window=7).mean()
     ax3.plot(df.index, df['cnt_rolling'], label='7-day Average')
-elif rolling_option == '14-day average':
+elif view_option == '14-day average':
     df['cnt_rolling'] = df['cnt'].rolling(window=14).mean()
     ax3.plot(df.index, df['cnt_rolling'], label='14-day Average')
+elif view_option == 'Weekly totals':
+    weekly_totals = df['cnt'].resample('W').sum()
+    ax3.plot(weekly_totals.index, weekly_totals.values, label='Weekly Total')
 else:
     ax3.plot(df.index, df['cnt'], label='Daily Total')
 
@@ -66,11 +69,9 @@ ax3.set_ylabel('Total Ridership')
 ax3.legend()
 
 import matplotlib.dates as mdates
-
-# Format the x-axis
-ax3.xaxis.set_major_locator(mdates.MonthLocator(interval=3))  # Show every 3rd month
-ax3.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))  # Format as "Year-Month"
-plt.xticks(rotation=45)  # Rotate x labels for better readability
+ax3.xaxis.set_major_locator(mdates.MonthLocator(interval=3))
+ax3.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+plt.xticks(rotation=45)
 
 st.pyplot(fig3)
 
